@@ -18,7 +18,12 @@
       };
     in
     {
-      inherit (clan.config) nixosConfigurations nixosModules clanInternals;
+      inherit (clan.config)
+        nixosConfigurations
+        nixosModules
+        darwinConfigurations
+        clanInternals
+        ;
       clan = clan.config;
       # Add the Clan cli tool to the dev shell.
       # Use "nix develop" to enter the dev shell.
@@ -30,10 +35,20 @@
             "aarch64-darwin"
             "x86_64-darwin"
           ]
-          (system: {
-            default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
-              packages = [ clan-core.packages.${system}.clan-cli ];
-            };
-          });
+          (
+            system:
+
+            let
+              pkgs = import nixpkgs { inherit system; };
+            in
+            {
+              default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
+                packages = [
+                  clan-core.packages.${system}.clan-cli
+                  pkgs.nil
+                ];
+              };
+            }
+          );
     };
 }
