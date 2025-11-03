@@ -1,17 +1,18 @@
-{ ... }@args:
+{ pkgs, ... }:
+let
+  keys = import ../../keys.nix;
+in
 {
   imports = [
     ../../modules/darwin/sane-defaults
   ];
   system.primaryUser = "yadunut";
   users.users."yadunut" = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXOpmWsAnl2RtOuJJMRUx+iJTwf2RWJ1iS3FqXJFzFG"
-    ];
+    openssh.authorizedKeys.keys = [ keys.yadunut ];
   };
   users.users."root" = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXOpmWsAnl2RtOuJJMRUx+iJTwf2RWJ1iS3FqXJFzFG"
+    openssh.authorizedKeys.keys = [ keys.yadunut ];
+  };
     ];
   };
 
