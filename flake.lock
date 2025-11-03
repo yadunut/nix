@@ -14,15 +14,15 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1762113984,
-        "narHash": "sha256-Gwah5F3ONMhvTYbsnJM4bAv0qcaI3wjz1Nq0rBGWVgo=",
-        "rev": "0f847b4799deee4a2c878ba69bda9c446fe16177",
+        "lastModified": 1762160537,
+        "narHash": "sha256-LHIzoN1c6kgIcHPVeZ9F0xomL8RAaYXHrh0CGsmnhRo=",
+        "rev": "6a6a3712565a33f56350a44ef20a81d36bdb64bc",
         "type": "tarball",
-        "url": "https://git.clan.lol/api/v1/repos/clan/clan-core/archive/0f847b4799deee4a2c878ba69bda9c446fe16177.tar.gz"
+        "url": "https://git.yadunut.dev/api/v1/repos/yadunut/clan-core/archive/6a6a3712565a33f56350a44ef20a81d36bdb64bc.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://git.clan.lol/clan/clan-core/archive/main.tar.gz"
+        "url": "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz"
       }
     },
     "data-mesher": {
