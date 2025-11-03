@@ -4,15 +4,17 @@ let
 in
 {
   imports = [
-    ../../modules/darwin/sane-defaults
+    ../../modules/common/sane-defaults
+    ../../modules/common/users
   ];
   system.primaryUser = "yadunut";
-  users.users."yadunut" = {
-    openssh.authorizedKeys.keys = [ keys.yadunut ];
+
+  nut = {
+    users.enable = true;
+    sane-defaults.enable = true;
   };
-  users.users."root" = {
-    openssh.authorizedKeys.keys = [ keys.yadunut ];
-  };
+
+  nixpkgs.config.allowUnfree = true;
 
   homebrew = {
     enable = true;
