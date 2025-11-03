@@ -6,12 +6,13 @@
   ...
 }:
 let
+  keys = import ../../../keys.nix;
   config = {
     nut = {
       git = {
         enable = true;
         gpgProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
-        signingKey = "~/.ssh/yadunut_ed25519.pub";
+        signingKey = keys.user.yadunut;
       };
       zsh.enable = true;
       neovim.enable = true;
@@ -27,6 +28,9 @@ let
       pkgs.cachix
       pkgs.ouch
 
+      pkgs.nil
+      pkgs.nixd
+
       pkgs.claude-code
       pkgs.codex
       pkgs.amp-cli
@@ -40,8 +44,8 @@ in
 {
   imports = [
     config
-    ../../home/git
-    ../../home/zsh
-    ../../home/neovim
+    ../../../modules/home/git
+    ../../../modules/home/zsh
+    ../../../modules/home/neovim
   ];
 }

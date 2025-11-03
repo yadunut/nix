@@ -43,20 +43,12 @@
             "aarch64-darwin"
             "x86_64-darwin"
           ]
-          (
-            system:
-
-            let
-              pkgs = import nixpkgs { inherit system; };
-            in
-            {
-              default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
-                packages = [
-                  clan-core.packages.${system}.clan-cli
-                  pkgs.nil
-                ];
-              };
-            }
-          );
+          (system: {
+            default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
+              packages = [
+                clan-core.packages.${system}.clan-cli
+              ];
+            };
+          });
     };
 }

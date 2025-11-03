@@ -1,9 +1,12 @@
-{ pkgs, ... }:
-let
-  keys = import ../../keys.nix;
-in
+{
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 {
   imports = [
+    inputs.home-manager.darwinModules.home-manager
     ../../modules/common/sane-defaults
     ../../modules/common/users
   ];
@@ -12,6 +15,15 @@ in
   nut = {
     users.enable = true;
     sane-defaults.enable = true;
+  };
+
+  # # Home Manager configuration
+  home-manager.useUserPackages = true;
+  home-manager.users.yadunut = {
+    imports = [
+      ./homes/yadunut.nix
+      inputs.nixvim.homeModules.nixvim
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -31,6 +43,7 @@ in
       "datagrip"
       "discord"
       "fantastical"
+      "fastmail"
       "ghostty"
       "google-chrome"
       "iina"
@@ -51,7 +64,6 @@ in
       "slack"
       "spotify"
       "steam"
-      "superwhisper"
       "syncthing-app"
       "tailscale"
       "tailscale-app"
