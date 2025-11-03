@@ -14,7 +14,10 @@ let
       # Enable Home Manager for NixOS and define the user
       home-manager.useUserPackages = true;
       home-manager.users.yadunut = {
-        imports = [ ./home.nix ];
+        imports = [
+          ./home.nix
+          inputs.nixvim.homeManagerModules.nixvim
+        ];
         home.homeDirectory = lib.mkForce "/home/yadunut";
       };
     };
@@ -29,7 +32,10 @@ let
       };
       home-manager.useUserPackages = true;
       home-manager.users.yadunut = {
-        imports = [ ./home.nix ];
+        imports = [
+          ./home.nix
+          inputs.nixvim.homeManagerModules.nixvim
+        ];
         home.homeDirectory = lib.mkForce "/Users/yadunut";
       };
     };

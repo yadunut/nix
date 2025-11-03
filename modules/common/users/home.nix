@@ -14,6 +14,7 @@ let
         signingKey = "~/.ssh/yadunut_ed25519.pub";
       };
       zsh.enable = true;
+      neovim.enable = true;
     };
     home.username = "yadunut";
     home.packages = [
@@ -41,5 +42,6 @@ in
     config
     ../../home/git
     ../../home/zsh
+    ../../home/neovim
   ];
 }
