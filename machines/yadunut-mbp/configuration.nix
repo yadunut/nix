@@ -1,12 +1,12 @@
 {
   pkgs,
-  lib,
   inputs,
   ...
 }:
 {
   imports = [
     inputs.home-manager.darwinModules.home-manager
+    inputs.nix-homebrew.darwinModules.nix-homebrew
     ../../modules/common/sane-defaults
     ../../modules/common/users
   ];
@@ -15,6 +15,12 @@
   nut = {
     users.enable = true;
     sane-defaults.enable = true;
+  };
+
+  nix-homebrew = {
+    enable = true;
+    user = "yadunut";
+    autoMigrate = true;
   };
 
   # # Home Manager configuration
@@ -36,7 +42,6 @@
       "1password"
       "1password-cli"
       "calibre"
-      "cardhop"
       "coconutbattery"
       "daisydisk"
       "darktable"
@@ -83,10 +88,8 @@
 
   fonts.packages = [ pkgs.jetbrains-mono ];
 
-  security.pam.services.sudo_local.touchIdAuth = true;
-
   nixpkgs.hostPlatform = "aarch64-darwin";
   clan.core.networking.targetHost = "root@localhost";
-  nix.enable = false; # since we're using nix darwin
+  nix.enable = false; # since we're using nix darwin and determinate nix
   system.stateVersion = 6;
 }

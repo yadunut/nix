@@ -27,9 +27,7 @@ in
   config = mkIf cfg.enable {
 
     home.packages = with pkgs; [
-      git
       lazygit
-      jujutsu
       delta
     ];
 
@@ -133,7 +131,7 @@ in
             "@-"
           ];
         };
-        ui.default-command = "log";
+        ui.default-command = ["log" "--no-pager"];
       };
     };
     programs.gh.enable = true;

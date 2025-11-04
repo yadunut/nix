@@ -19,6 +19,7 @@ let
       dock.autohide = true;
       dock.autohide-delay = 0.0;
     };
+    security.pam.services.sudo_local.touchIdAuth = true;
   };
 in
 {

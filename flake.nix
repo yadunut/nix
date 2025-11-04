@@ -1,6 +1,7 @@
 {
   inputs.clan-core.url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
   inputs.nixpkgs.follows = "clan-core/nixpkgs";
+  inputs.nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   inputs.home-manager = {
     url = "github:nix-community/home-manager";
     inputs.nixpkgs.follows = "clan-core/nixpkgs";
