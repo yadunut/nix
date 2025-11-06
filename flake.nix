@@ -1,14 +1,19 @@
 {
-  inputs.clan-core.url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
-  inputs.nixpkgs.follows = "clan-core/nixpkgs";
-  inputs.nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-  inputs.home-manager = {
-    url = "github:nix-community/home-manager";
-    inputs.nixpkgs.follows = "clan-core/nixpkgs";
-  };
-  inputs.nixvim = {
-    url = "github:nix-community/nixvim";
-    inputs.nixpkgs.follows = "clan-core/nixpkgs";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    clan-core = {
+      url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
