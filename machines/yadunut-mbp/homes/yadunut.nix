@@ -6,6 +6,7 @@
   ...
 }:
 let
+  inherit (import ../../../lib) collectNixFiles;
   keys = import ../../../keys.nix;
   config = {
     nut = {
@@ -42,10 +43,6 @@ let
   };
 in
 {
-  imports = [
-    config
-    ../../../modules/home/git
-    ../../../modules/home/zsh
-    ../../../modules/home/neovim
-  ];
+  imports = collectNixFiles ../../../modules/home;
+  inherit config;
 }
