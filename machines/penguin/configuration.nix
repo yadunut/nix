@@ -11,13 +11,14 @@ in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.agenix.nixosModules.default
     ./disko-config.nix
     ./hardware-configuration.nix
   ]
   ++ collectNixFiles ../../modules/common
   ++ collectNixFiles ../../modules/nixos;
   config = {
-    # age.secrets.k3s.file = ../../../secrets/k3s.age;
+    age.secrets.k3s.file = ../../secrets/k3s.age;
     users.users.yadunut.linger = true;
     nut = {
       users.enable = true;

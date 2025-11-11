@@ -14,6 +14,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -21,6 +25,7 @@
       self,
       clan-core,
       nixpkgs,
+      agenix,
       ...
     }@inputs:
     let
@@ -53,6 +58,7 @@
             default = clan-core.inputs.nixpkgs.legacyPackages.${system}.mkShell {
               packages = [
                 clan-core.packages.${system}.clan-cli
+                agenix.packages.${system}.default
               ];
             };
           });
