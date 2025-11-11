@@ -40,6 +40,7 @@ in
         };
       };
       zsh = {
+        defaultKeymap = "viins";
         enable = true;
         enableCompletion = true;
         syntaxHighlighting.enable = true;

@@ -131,7 +131,13 @@ in
             "@-"
           ];
         };
-        ui.default-command = ["log" "--no-pager"];
+        ui = {
+          default-command = [
+            "log"
+            "--no-pager"
+          ];
+          movement.edit = true;
+        };
       };
     };
     programs.gh.enable = true;
