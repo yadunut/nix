@@ -1,7 +1,4 @@
 {
-  _class,
-  config,
-  lib,
   pkgs,
   ...
 }:

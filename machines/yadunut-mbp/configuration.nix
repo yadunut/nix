@@ -39,6 +39,9 @@ in
       enable = true;
       onActivation.cleanup = "zap";
       greedyCasks = true;
+      brews = [
+        "container"
+      ];
       casks = [
         "1password"
         "1password-cli"
@@ -66,6 +69,7 @@ in
         "obsidian"
         "protonvpn"
         "raycast"
+        "selfcontrol"
         "skim"
         "slack"
         "spotify"
