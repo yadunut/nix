@@ -25,12 +25,11 @@ in
 
     # # Home Manager configuration
     home-manager.useUserPackages = true;
-    home-manager.users.yadunut = {
-      imports = [
-        ./homes/yadunut.nix
-        inputs.nixvim.homeModules.nixvim
-      ];
-    };
+    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.users.yadunut.imports = [
+      ./homes/yadunut.nix
+      inputs.nixvim.homeModules.nixvim
+    ];
 
     nixpkgs.config.allowUnfree = true;
 
