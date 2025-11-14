@@ -31,8 +31,6 @@ in
       inputs.nixvim.homeModules.nixvim
     ];
 
-    nixpkgs.config.allowUnfree = true;
-
     fonts.packages = [ pkgs.jetbrains-mono ];
     homebrew = {
       enable = true;

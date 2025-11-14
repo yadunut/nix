@@ -54,27 +54,21 @@ in
       };
     };
 
-    home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = { inherit inputs; };
-    home-manager.users.yadunut.imports = [
-      ./homes/yadunut.nix
-      inputs.nixvim.homeModules.nixvim
-    ];
-
-    boot = {
-      tmp.cleanOnBoot = true;
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
+    home-manager = {
+      useUserPackages = true;
+      extraSpecialArgs = { inherit inputs; };
+      users.yadunut.imports = [
+        ./homes/yadunut.nix
+        inputs.nixvim.homeModules.nixvim
+      ];
     };
 
-    time.timeZone = "Asia/Singapore";
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
     services = {
-      openssh = {
-        enable = true;
-        settings.PasswordAuthentication = false;
-      };
       tailscale.enable = true;
       zerotierone = {
         enable = true;

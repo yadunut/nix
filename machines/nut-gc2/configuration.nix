@@ -20,7 +20,6 @@ in
   ++ collectNixFiles ../../modules/nixos;
   config = {
     age.secrets.k3s.file = ../../secrets/k3s.age;
-    users.users.yadunut.linger = true;
     nut = {
       users.enable = true;
       sane-defaults.enable = true;
@@ -102,19 +101,13 @@ in
     };
 
     boot = {
-      tmp.cleanOnBoot = true;
       loader.grub.enable = true;
       kernel.sysctl = {
         "net.ipv4.ip_forward" = 1;
       };
     };
 
-    time.timeZone = "Asia/Singapore";
     services = {
-      openssh = {
-        enable = true;
-        settings.PasswordAuthentication = false;
-      };
       tailscale.enable = true;
       zerotierone = {
         enable = true;

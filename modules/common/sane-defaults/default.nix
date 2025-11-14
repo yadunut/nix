@@ -9,7 +9,14 @@ let
   inherit (lib) mkIf mkEnableOption;
   cfg = config.nut.sane-defaults;
   nixosModule = mkIf cfg.enable {
+    time.timeZone = "Asia/Singapore";
+    boot.tmp.cleanOnBoot = true;
     environment.systemPackages = [ pkgs.cachix ];
+
+    services.openssh = {
+      enable = true;
+      settings.PasswordAuthentication = false;
+    };
 
     security.sudo.wheelNeedsPassword = false;
     nixpkgs.config = {
@@ -42,6 +49,10 @@ let
 
   };
   darwinModule = mkIf cfg.enable {
+    time.timeZone = "Asia/Singapore";
+    nixpkgs.config = {
+      allowUnfree = true;
+    };
     system.defaults = {
       NSGlobalDomain = {
         InitialKeyRepeat = 10;
