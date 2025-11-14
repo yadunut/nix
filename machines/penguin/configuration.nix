@@ -24,30 +24,19 @@ in
       users.enable = true;
       sane-defaults.enable = true;
       nvidia.enable = true;
-    };
-
-    boot = {
-      tmp.cleanOnBoot = true;
-      loader = {
-        systemd-boot.enable = true;
-        efi.canTouchEfiVariables = true;
-      };
-      initrd.network = {
+      k3s = {
         enable = true;
-        ssh = {
-          enable = true;
-          hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
-          authorizedKeys = lib.concatLists (
-            lib.mapAttrsToList (
-              name: user: if lib.elem "wheel" user.extraGroups then user.openssh.authorizedKeys.keys else [ ]
-            ) config.users.users
-          );
-        };
+        role = "agent";
+        tokenFile = config.age.secrets.k3s.path;
+        clusterInit = false;
+        serverAddr = "https://10.222.0.13:6443";
+        nodeIp = "10.222.0.249";
+        iface = "ztxh6lvd6t";
+        nvidia = true;
       };
     };
-    time.timeZone = "Asia/Singapore";
-
     networking = {
+      hostName = "penguin";
       networkmanager.enable = true;
       nftables.enable = false;
       firewall = {
@@ -63,6 +52,23 @@ in
         ];
       };
     };
+
+    home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = { inherit inputs; };
+    home-manager.users.yadunut.imports = [
+      ./homes/yadunut.nix
+      inputs.nixvim.homeModules.nixvim
+    ];
+
+    boot = {
+      tmp.cleanOnBoot = true;
+      loader = {
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
+      };
+    };
+
+    time.timeZone = "Asia/Singapore";
     services = {
       openssh = {
         enable = true;
@@ -86,5 +92,6 @@ in
       defaultNetwork.settings.dns_enabled = true;
     };
     system.stateVersion = "25.11";
+    clan.core.networking.targetHost = "root@10.222.0.249";
   };
 }
