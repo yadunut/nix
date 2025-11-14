@@ -96,8 +96,7 @@ in
       useUserPackages = true;
       extraSpecialArgs = { inherit inputs; };
       users.yadunut.imports = [
-        ./homes/yadunut.nix
-        inputs.nixvim.homeModules.nixvim
+        ../../homes/yadunut.nix
       ];
     };
 

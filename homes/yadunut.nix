@@ -1,9 +1,10 @@
 {
   pkgs,
+  inputs,
   ...
 }:
 let
-  inherit (import ../../../lib) collectNixFiles;
+  inherit (import ../lib) collectNixFiles;
   config = {
     nut = {
       zsh.enable = true;
@@ -21,6 +22,9 @@ let
   };
 in
 {
-  imports = collectNixFiles ../../../modules/home;
+  imports = [
+    inputs.nixvim.homeModules.nixvim
+  ]
+  ++ collectNixFiles ../modules/home;
   inherit config;
 }
