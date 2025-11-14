@@ -10,6 +10,7 @@ let
   keys = import ../../../keys.nix;
   cfg = config.nut.users;
   createUser = name: args: {
+    programs.zsh.enable = true;
     users.users.${name} = {
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [ keys.user.yadunut ];
