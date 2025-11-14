@@ -110,7 +110,7 @@ in
     services = {
       tailscale.enable = true;
       udev.extraRules = ''
-        ATTR{address}=="00:72:f1:f7:47:db", NAME="ens3"
+        ATTR{address}=="00:15:f7:ac:78:41", NAME="ens3"
       '';
     };
     environment.systemPackages = with pkgs; [
