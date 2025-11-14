@@ -7,6 +7,7 @@
 }:
 let
   inherit (import ../../lib) collectNixFiles;
+  ip = "10.222.0.249";
 in
 {
   imports = [
@@ -30,7 +31,7 @@ in
         tokenFile = config.age.secrets.k3s.path;
         clusterInit = false;
         serverAddr = "https://10.222.0.13:6443";
-        nodeIp = "10.222.0.249";
+        nodeIp = ip;
         iface = "ztxh6lvd6t";
         nvidia = true;
       };
@@ -92,6 +93,6 @@ in
       defaultNetwork.settings.dns_enabled = true;
     };
     system.stateVersion = "25.11";
-    clan.core.networking.targetHost = "root@10.222.0.249";
+    clan.core.networking.targetHost = "root@${ip}";
   };
 }
