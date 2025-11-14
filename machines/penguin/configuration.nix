@@ -25,6 +25,7 @@ in
       users.enable = true;
       sane-defaults.enable = true;
       nvidia.enable = true;
+      zerotier.enable = true;
       k3s = {
         enable = true;
         role = "agent";
@@ -47,10 +48,7 @@ in
           3000
           3001
         ];
-        trustedInterfaces = [
-          "tailscale0"
-          "ztxh6lvd6t"
-        ];
+        trustedInterfaces = [ "tailscale0" ];
       };
     };
 
@@ -70,10 +68,6 @@ in
 
     services = {
       tailscale.enable = true;
-      zerotierone = {
-        enable = true;
-        joinNetworks = [ "23992b9a659115b6" ];
-      };
     };
     environment.systemPackages = with pkgs; [
       git

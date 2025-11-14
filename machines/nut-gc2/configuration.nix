@@ -23,6 +23,7 @@ in
     nut = {
       users.enable = true;
       sane-defaults.enable = true;
+      zerotier.enable = true;
       k3s = {
         enable = true;
         role = "agent";
@@ -84,10 +85,7 @@ in
       firewall = {
         enable = true;
         allowedTCPPorts = [ 22 ];
-        trustedInterfaces = [
-          "tailscale0"
-          "ztxh6lvd6t"
-        ];
+        trustedInterfaces = [ "tailscale0" ];
       };
     };
 
@@ -109,10 +107,6 @@ in
 
     services = {
       tailscale.enable = true;
-      zerotierone = {
-        enable = true;
-        joinNetworks = [ "23992b9a659115b6" ];
-      };
       udev.extraRules = ''
         ATTR{address}=="00:72:f1:f7:47:db", NAME="ens3"
       '';
