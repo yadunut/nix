@@ -1,6 +1,16 @@
 {
   inputs,
   pkgs,
+  # lib,
+  # specialArgs,
+  # config,
+  # options,
+  # _class,
+  # modulesPath,
+  # _prefix,
+  # darwinConfig,
+  # osConfig,
+  # osClass,
   ...
 }:
 let
