@@ -31,8 +31,8 @@ in
       default = false;
     };
     serverAddr = mkOption {
-      type = types.nonEmptyStr;
-      default = "server";
+      type = types.str;
+      default = "";
     };
     nodeIp = mkOption {
       type = types.nonEmptyStr;
@@ -66,6 +66,12 @@ in
             "--node-ip ${cfg.nodeIp}"
             "--flannel-iface ${cfg.iface}"
           ]
+          ++ (lib.optionals isServer [
+            "--disable=servicelb"
+            "--disable=traefik"
+            "--flannel-backend=host-gw"
+            "--tls-san ${cfg.nodeIp}"
+          ])
           ++ cfg.extraFlags;
         };
         environment.systemPackages = [ pkgs.nfs-utils ];
