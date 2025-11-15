@@ -11,7 +11,7 @@ rec {
     };
     penguin = {
       ip = "10.222.0.249";
-      user = "root";
+      user = "yadunut";
     };
     premhome-falcon-1 = {
       ip = "10.222.0.198";

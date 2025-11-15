@@ -24,14 +24,13 @@ let
       pkgs.rsync
       pkgs.codex
       pkgs.dive
-      pkgs.cachix
       pkgs.ouch
 
       pkgs.nil
       pkgs.nixd
 
       pkgs.claude-code
-      pkgs.amp-cli
+      # pkgs.amp-cli
     ];
 
     nixpkgs.config.allowUnfree = true;
