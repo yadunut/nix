@@ -20,13 +20,14 @@ let
   nixosModule = {
     config = lib.mkIf cfg.enable (
       lib.mkMerge [
+        { users.mutableUsers = false; }
         (createUser "yadunut" {
           isNormalUser = true;
-          hashedPassword = "$y$j9T$9ATrmrhedhb.mAZ4//PiN/$OStCOaJHt3kPA63imTG3zLMWCSLoWCUph5O6jl5mcZ.";
+          hashedPassword = "$y$j9T$XR5JhClixWp8d626AsjPZ.$PdN77P4SRt/GuJ9jVovcTSOh6ySf9alSsflFJG8n2A.";
           extraGroups = [ "wheel" ];
         })
         (createUser "root" {
-          hashedPassword = "$6$xa/mFg4OxIbb8XiQ$S2RVyCKcLaKHymFs48u8vj1dv.mQdxt.BQoucJsr8wfcHayXwKfD0C2NIOYY5AEPR9zgnMvFp8d8STKe6wMGR/";
+          hashedPassword = "$y$j9T$XR5JhClixWp8d626AsjPZ.$PdN77P4SRt/GuJ9jVovcTSOh6ySf9alSsflFJG8n2A.";
         })
       ]
     );

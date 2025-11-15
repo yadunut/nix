@@ -24,6 +24,9 @@ rec {
     yadunut-mbp = {
       ip = "localhost";
       user = "root";
+      extraArgs = {
+        machineClass = "darwin";
+      };
     };
   };
 

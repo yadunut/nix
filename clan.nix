@@ -7,12 +7,13 @@
     let
       machinesConfig = import ./hosts.nix;
     in
-    {
-      yadunut-mbp.machineClass = "darwin";
-    }
-    // builtins.mapAttrs (name: cfg: {
-      deploy.targetHost = "${cfg.user}@${cfg.ip}";
-    }) machinesConfig.machines;
+    builtins.mapAttrs (
+      name: cfg:
+      {
+        deploy.targetHost = "${cfg.user}@${cfg.ip}";
+      }
+      // (if cfg ? extraArgs then cfg.extraArgs else { })
+    ) machinesConfig.machines;
 
   inventory.instances = { };
 
