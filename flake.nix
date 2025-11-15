@@ -4,6 +4,8 @@
     clan-core = {
       url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "dedupe_systems";
+      inputs.flake-parts.follows = "flake-parts";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
@@ -13,11 +15,29 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.systems.follows = "dedupe_systems";
+      inputs.nuschtosSearch.follows = "dedupe_nuschtosSearch";
     };
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    dedupe_systems.url = "github:nix-systems/default";
+    dedupe_flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "dedupe_systems";
+    };
+    dedupe_nuschtosSearch = {
+      url = "github:NuschtOS/search";
+      inputs.flake-utils.follows = "dedupe_flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
