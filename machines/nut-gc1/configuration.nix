@@ -93,10 +93,9 @@ in
       };
     };
 
-    home-manager = {
-      useUserPackages = true;
-      extraSpecialArgs = { inherit inputs; };
-      users.yadunut.imports = [
+    nut.home-manager = {
+      enable = true;
+      userImports = [
         ../../homes/yadunut.nix
       ];
     };
