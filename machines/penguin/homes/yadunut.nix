@@ -4,7 +4,7 @@
 }:
 let
   inherit (import ../../../lib) collectNixFiles;
-  keys = import ../../../keys.nix;
+  keys = import ../../../hosts.nix;
   config = {
     nut = {
       git = {

@@ -7,7 +7,7 @@
 }:
 
 let
-  keys = import ../../../keys.nix;
+  keys = import ../../../hosts.nix;
   cfg = config.nut.users;
   createUser = name: args: {
     programs.zsh.enable = true;

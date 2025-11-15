@@ -88,7 +88,6 @@ in
     };
 
     nixpkgs.hostPlatform = "aarch64-darwin";
-    clan.core.networking.targetHost = "root@localhost";
     nix.enable = false; # since we're using nix darwin and determinate nix
     system.stateVersion = 6;
   };

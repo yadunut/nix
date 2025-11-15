@@ -3,9 +3,16 @@
   meta.name = "nut-clan";
   meta.tld = "nut";
 
-  inventory.machines = {
-    yadunut-mbp.machineClass = "darwin";
-  };
+  inventory.machines =
+    let
+      machinesConfig = import ./hosts.nix;
+    in
+    {
+      yadunut-mbp.machineClass = "darwin";
+    }
+    // builtins.mapAttrs (name: cfg: {
+      deploy.targetHost = "${cfg.user}@${cfg.ip}";
+    }) machinesConfig.machines;
 
   inventory.instances = { };
 

@@ -7,7 +7,8 @@
 }:
 let
   inherit (import ../../lib) collectNixFiles;
-  ip = "10.222.0.87";
+  machinesConfig = import ../../hosts.nix;
+  ip = machinesConfig.machines."nut-gc2".ip;
 in
 {
   imports = [
@@ -104,6 +105,5 @@ in
     };
 
     system.stateVersion = "25.11";
-    clan.core.networking.targetHost = "yadunut@${ip}";
   };
 }

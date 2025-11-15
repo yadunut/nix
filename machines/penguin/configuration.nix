@@ -7,7 +7,8 @@
 }:
 let
   inherit (import ../../lib) collectNixFiles;
-  ip = "10.222.0.249";
+  machinesConfig = import ../../hosts.nix;
+  ip = machinesConfig.machines.penguin.ip;
 in
 {
   imports = [
@@ -68,6 +69,5 @@ in
       defaultNetwork.settings.dns_enabled = true;
     };
     system.stateVersion = "25.11";
-    clan.core.networking.targetHost = "root@${ip}";
   };
 }

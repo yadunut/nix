@@ -1,7 +1,7 @@
 let
-  keys = import ../keys.nix;
-  inherit (keys) users machines;
+  keys = import ../hosts.nix;
+  inherit (keys) usersKeys machinesKeys;
 in
 {
-  "k3s.age".publicKeys = users ++ machines;
+  "k3s.age".publicKeys = usersKeys ++ machinesKeys;
 }
