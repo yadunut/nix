@@ -107,11 +107,6 @@ in
         ATTR{address}=="00:15:f7:ac:78:41", NAME="ens3"
       '';
     };
-    environment.systemPackages = with pkgs; [
-      git
-      neovim
-      btop
-    ];
 
     system.stateVersion = "25.11";
     clan.core.networking.targetHost = "yadunut@${ip}";

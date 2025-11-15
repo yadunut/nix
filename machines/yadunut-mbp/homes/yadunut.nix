@@ -1,16 +1,6 @@
 {
   inputs,
   pkgs,
-  # lib,
-  # specialArgs,
-  # config,
-  # options,
-  # _class,
-  # modulesPath,
-  # _prefix,
-  # darwinConfig,
-  # osConfig,
-  # osClass,
   ...
 }:
 let
@@ -41,7 +31,6 @@ let
       pkgs.nixd
 
       pkgs.claude-code
-      pkgs.codex
       pkgs.amp-cli
     ];
 

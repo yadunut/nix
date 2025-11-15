@@ -31,7 +31,6 @@ in
         enable = true;
         role = "agent";
         tokenFile = config.age.secrets.k3s.path;
-        clusterInit = false;
         serverAddr = "https://10.222.0.13:6443";
         nodeIp = ip;
         iface = "ztxh6lvd6t";
@@ -62,15 +61,7 @@ in
       ];
     };
 
-
-    services = {
-      tailscale.enable = true;
-    };
-    environment.systemPackages = with pkgs; [
-      git
-      neovim
-      btop
-    ];
+    services.tailscale.enable = true;
 
     virtualisation.podman = {
       enable = true;

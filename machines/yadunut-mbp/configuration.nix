@@ -8,7 +8,6 @@ in
     inputs.nix-homebrew.darwinModules.nix-homebrew
   ]
   ++ collectNixFiles ../../modules/common;
-  # ++ collectNixFiles ../../modules/darwin;
   config = {
     system.primaryUser = "yadunut";
 
@@ -23,7 +22,7 @@ in
       autoMigrate = true;
     };
 
-    # # Home Manager configuration
+    # Home Manager configuration
     home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = { inherit inputs; };
     home-manager.users.yadunut.imports = [
@@ -44,6 +43,7 @@ in
         "1password-cli"
         "calibre"
         "coconutbattery"
+        "cursor"
         "daisydisk"
         "darktable"
         "datagrip"
@@ -72,7 +72,6 @@ in
         "spotify"
         "steam"
         "syncthing-app"
-        "tailscale"
         "tailscale-app"
         "telegram"
         "the-unarchiver"

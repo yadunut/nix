@@ -29,7 +29,6 @@ in
         enable = true;
         role = "agent";
         tokenFile = config.age.secrets.k3s.path;
-        clusterInit = false;
         serverAddr = "https://10.222.0.13:6443";
         nodeIp = ip;
         iface = "ztxh6lvd6t";
@@ -104,11 +103,6 @@ in
         ATTR{address}=="00:72:f1:f7:47:db", NAME="ens3"
       '';
     };
-    environment.systemPackages = with pkgs; [
-      git
-      neovim
-      btop
-    ];
 
     system.stateVersion = "25.11";
     clan.core.networking.targetHost = "yadunut@${ip}";

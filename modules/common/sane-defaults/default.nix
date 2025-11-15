@@ -10,7 +10,12 @@ let
   cfg = config.nut.sane-defaults;
   nixosModule = mkIf cfg.enable {
     time.timeZone = "Asia/Singapore";
-    environment.systemPackages = [ pkgs.cachix ];
+    environment.systemPackages = with pkgs; [
+      cachix
+      git
+      neovim
+      btop
+    ];
 
     services.openssh = {
       enable = true;
