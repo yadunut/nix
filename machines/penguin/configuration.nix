@@ -26,6 +26,7 @@ in
       sane-defaults.enable = true;
       nvidia.enable = true;
       zerotier.enable = true;
+      boot.loader = "systemd";
       k3s = {
         enable = true;
         role = "agent";
@@ -61,10 +62,6 @@ in
       ];
     };
 
-    boot.loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
 
     services = {
       tailscale.enable = true;

@@ -23,6 +23,7 @@ in
     nut = {
       users.enable = true;
       sane-defaults.enable = true;
+      boot.loader = "grub";
       zerotier.enable = true;
       k3s = {
         enable = true;
@@ -98,13 +99,6 @@ in
       users.yadunut.imports = [
         ../../homes/yadunut.nix
       ];
-    };
-
-    boot = {
-      loader.grub.enable = true;
-      kernel.sysctl = {
-        "net.ipv4.ip_forward" = 1;
-      };
     };
 
     services = {
