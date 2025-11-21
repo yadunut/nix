@@ -1,25 +1,14 @@
 {
-  inputs,
   config,
   ...
 }:
 {
   configurations.darwin.yadunut-mbp.module = {
-    imports = [
-      ../../common/sane-defaults
-      ../../common/users
-      inputs.nix-homebrew.darwinModules.nix-homebrew
-      inputs.home-manager.darwinModules.home-manager
+    imports = with config.flake.modules.darwin; [
+      base
+      home-manager
     ];
-    nut = {
-      users.enable = true;
-      sane-defaults.enable = true;
-    };
-
-    system.primaryUser = "yadunut";
     home-manager = {
-      useUserPackages = true;
-      # extraSpecialArgs = { inherit inputs; };
       users.yadunut.imports = [
         config.flake.modules.homeManager.nixvim
         config.flake.modules.homeManager.base
@@ -59,11 +48,6 @@
           }
         )
       ];
-    };
-    nix-homebrew = {
-      enable = true;
-      user = "yadunut";
-      autoMigrate = true;
     };
     homebrew = {
       enable = true;

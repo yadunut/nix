@@ -1,5 +1,15 @@
 { ... }:
 {
+  flake.modules.darwin.base =
+    { pkgs, ... }:
+    {
+      programs.zsh.enable = true;
+    };
+  flake.modules.nixos.base =
+    { pkgs, ... }:
+    {
+      programs.zsh.enable = true;
+    };
   flake.modules.homeManager.base =
     { pkgs, ... }:
     {

@@ -62,6 +62,12 @@
         ./modules/configurations
         ./modules/zsh
         ./modules/git.nix
+        ./modules/yadunut.nix
+        ./modules/home-manager.nix
+        ./modules/homebrew.nix
+        ./modules/nix.nix
+        ./modules/sane-defaults.nix
+        ./modules/ssh.nix
       ];
       debug = true;
       flake =
