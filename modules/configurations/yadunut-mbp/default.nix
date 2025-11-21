@@ -23,7 +23,6 @@
       users.yadunut.imports = [
         config.flake.modules.homeManager.nixvim
         config.flake.modules.homeManager.base
-        ../../home/git
         (
           { pkgs, ... }:
           let
@@ -32,7 +31,6 @@
           {
             nut = {
               git = {
-                enable = true;
                 gpgProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
                 signingKey = keys.user.yadunut;
               };

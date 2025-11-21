@@ -61,6 +61,7 @@
         ./modules/nixvim.nix
         ./modules/configurations
         ./modules/zsh
+        ./modules/git.nix
       ];
       debug = true;
       flake =
