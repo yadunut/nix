@@ -52,29 +52,10 @@
   };
 
   outputs =
-    { flake-parts, ... }@inputs:
+    { flake-parts, self, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      debug = true;
-      flake =
-        let
-          # Usage see: https://docs.clan.lol
-          clan = clan-core.lib.clan {
-            inherit self;
-            imports = [ ./clan.nix ];
-            specialArgs = { inherit inputs; };
-          };
-        in
-        {
-          inherit (clan.config)
-            # nixosConfigurations
-            # nixosModules
-            # darwinConfigurations
-            clanInternals
-            ;
-          clan = clan.config;
-        };
       imports = [ (inputs.import-tree ./modules) ];
-      debug = false;
+      # debug = true;
       systems = [
         "x86_64-linux"
         "aarch64-linux"
