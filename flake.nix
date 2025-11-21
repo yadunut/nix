@@ -7,6 +7,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "dedupe_systems";
       inputs.flake-parts.follows = "flake-parts";
+      inputs.nix-darwin.follows = "nix-darwin";
+    };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
@@ -54,6 +59,7 @@
         ./modules/clan.nix
         ./modules/agenix.nix
         ./modules/nixvim.nix
+        ./modules/configurations
       ];
       debug = true;
       flake =
@@ -69,7 +75,7 @@
           inherit (clan.config)
             nixosConfigurations
             nixosModules
-            darwinConfigurations
+            # darwinConfigurations
             clanInternals
             ;
           clan = clan.config;
