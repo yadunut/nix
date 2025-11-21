@@ -1,14 +1,12 @@
 {
-  pkgs,
   inputs,
-  lib,
   config,
   ...
 }:
 let
   inherit (import ../../lib) collectNixFiles;
   machinesConfig = import ../../hosts.nix;
-  hostName = "premhome-eagle-1";
+  hostName = "premhome-falcon-1";
   ip = machinesConfig.machines."${hostName}".ip;
 in
 {
@@ -17,9 +15,7 @@ in
     inputs.agenix.nixosModules.default
     ./disko-config.nix
     ./hardware-configuration.nix
-  ]
-  ++ collectNixFiles ../../modules/common
-  ++ collectNixFiles ../../modules/nixos;
+  ];
   config = {
     age.secrets.k3s.file = ../../secrets/k3s.age;
     nut = {

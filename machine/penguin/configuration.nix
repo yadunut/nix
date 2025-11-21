@@ -1,15 +1,12 @@
 {
-  pkgs,
   inputs,
-  lib,
   config,
   ...
 }:
 let
   inherit (import ../../lib) collectNixFiles;
   machinesConfig = import ../../hosts.nix;
-  hostName = "premhome-falcon-1";
-  ip = machinesConfig.machines."${hostName}".ip;
+  ip = machinesConfig.machines.penguin.ip;
 in
 {
   imports = [
@@ -17,16 +14,16 @@ in
     inputs.agenix.nixosModules.default
     ./disko-config.nix
     ./hardware-configuration.nix
-  ]
-  ++ collectNixFiles ../../modules/common
-  ++ collectNixFiles ../../modules/nixos;
+  ];
   config = {
     age.secrets.k3s.file = ../../secrets/k3s.age;
+    users.users.yadunut.linger = true;
     nut = {
       users.enable = true;
       sane-defaults.enable = true;
-      boot.loader = "systemd";
+      nvidia.enable = true;
       zerotier.enable = true;
+      boot.loader = "systemd";
       k3s = {
         enable = true;
         role = "agent";
@@ -34,35 +31,39 @@ in
         serverAddr = "https://10.222.0.13:6443";
         nodeIp = ip;
         iface = "ztxh6lvd6t";
-      };
-      home-manager = {
-        enable = true;
-        userImports = [
-          ../../homes/yadunut.nix
-        ];
+        nvidia = true;
       };
     };
-
     networking = {
-      hostName = hostName;
-      nameservers = [
-        "1.1.1.1"
-        "8.8.8.8"
-      ];
+      hostName = "penguin";
+      networkmanager.enable = true;
+      nftables.enable = false;
       firewall = {
         enable = true;
         allowedTCPPorts = [
           22
+          3000
+          3001
         ];
         trustedInterfaces = [ "tailscale0" ];
       };
     };
 
-    services = {
-      tailscale.enable = true;
-      qemuGuest.enable = true;
+    nut.home-manager = {
+      enable = true;
+      userImports = [
+        ./homes/yadunut.nix
+        inputs.nixvim.homeModules.nixvim
+      ];
     };
 
-    system.stateVersion = "24.11";
+    services.tailscale.enable = true;
+
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = false;
+      defaultNetwork.settings.dns_enabled = true;
+    };
+    system.stateVersion = "25.11";
   };
 }
