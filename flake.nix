@@ -45,8 +45,6 @@
       flake-parts,
       self,
       clan-core,
-      nixpkgs,
-      agenix,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -55,6 +53,7 @@
         ./modules/devshells.nix
         ./modules/clan.nix
         ./modules/agenix.nix
+        ./modules/nixvim.nix
       ];
       debug = true;
       flake =
