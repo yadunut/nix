@@ -11,6 +11,8 @@
       casks = [
         "1password"
         "1password-cli"
+        "autodesk-fusion"
+        "bambu-studio"
         "calibre"
         "coconutbattery"
         "cursor"

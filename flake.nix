@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     make-shell.url = "github:nicknovitski/make-shell";
+    import-tree.url = "github:vic/import-tree";
     clan-core = {
       url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -51,41 +52,8 @@
   };
 
   outputs =
-    {
-      flake-parts,
-      self,
-      clan-core,
-      ...
-    }@inputs:
+    { flake-parts, ... }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        ./modules/configurations/darwin.nix
-        ./modules/configurations/nixos.nix
-        ./modules/configurations/yadunut-mbp
-        ./modules/configurations/yadunut-mbp/home.nix
-        ./modules/configurations/yadunut-mbp/brew.nix
-        ./modules/configurations/penguin
-        ./modules/configurations/penguin/disko.nix
-        ./modules/configurations/penguin/hardware.nix
-        ./modules/configurations/penguin/home.nix
-        ./modules/agenix.nix
-        ./modules/boot.nix
-        ./modules/clan.nix
-        ./modules/devshells.nix
-        ./modules/flake-parts.nix
-        ./modules/git.nix
-        ./modules/home-manager.nix
-        ./modules/homebrew.nix
-        ./modules/k3s.nix
-        ./modules/nix.nix
-        ./modules/nixvim.nix
-        ./modules/nvidia.nix
-        ./modules/sane-defaults.nix
-        ./modules/ssh.nix
-        ./modules/yadunut.nix
-        ./modules/zerotier.nix
-        ./modules/zsh
-      ];
       debug = true;
       flake =
         let
@@ -105,6 +73,8 @@
             ;
           clan = clan.config;
         };
+      imports = [ (inputs.import-tree ./modules) ];
+      debug = false;
       systems = [
         "x86_64-linux"
         "aarch64-linux"
