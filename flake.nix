@@ -52,6 +52,9 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         flake-parts.flakeModules.modules
+        ./modules/devshells.nix
+        ./modules/clan.nix
+        ./modules/agenix.nix
       ];
       debug = true;
       flake =
@@ -77,15 +80,5 @@
         "aarch64-linux"
         "aarch64-darwin"
       ];
-      perSystem =
-        { pkgs, inputs', ... }:
-        {
-          devShells.default = pkgs.mkShell {
-            packages = [
-              inputs'.clan-core.packages.clan-cli
-              inputs'.agenix.packages.default
-            ];
-          };
-        };
     };
 }
