@@ -22,8 +22,8 @@
       # extraSpecialArgs = { inherit inputs; };
       users.yadunut.imports = [
         config.flake.modules.homeManager.nixvim
+        config.flake.modules.homeManager.base
         ../../home/git
-        ../../home/zsh
         (
           { pkgs, ... }:
           let
@@ -36,7 +36,6 @@
                 gpgProgram = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
                 signingKey = keys.user.yadunut;
               };
-              zsh.enable = true;
             };
             home = {
               username = "yadunut";

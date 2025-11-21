@@ -60,6 +60,7 @@
         ./modules/agenix.nix
         ./modules/nixvim.nix
         ./modules/configurations
+        ./modules/zsh
       ];
       debug = true;
       flake =
