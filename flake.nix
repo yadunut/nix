@@ -60,6 +60,8 @@
         ./modules/agenix.nix
         ./modules/nixvim.nix
         ./modules/configurations
+        ./modules/configurations/yadunut-mbp/home.nix
+        ./modules/configurations/yadunut-mbp/brew.nix
         ./modules/zsh
         ./modules/git.nix
         ./modules/yadunut.nix
