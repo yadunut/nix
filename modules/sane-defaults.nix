@@ -11,6 +11,15 @@
         btop
       ];
       security.sudo.wheelNeedsPassword = false;
+      networking = {
+        nameservers = [
+          "1.1.1.1"
+          "8.8.8.8"
+        ];
+        firewall = {
+          enable = true;
+        };
+      };
     };
   flake.modules.darwin.base =
     { ... }:

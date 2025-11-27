@@ -1,12 +1,8 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 let
-  hostname = "penguin";
+  hostname = "nut-gc1";
   hosts = import ../../../hosts.nix;
   ip = hosts.machines.${hostname}.ip;
-  serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
@@ -18,51 +14,37 @@ in
         base
         yadunut
         home-manager
-        nvidia
         zerotier
         k3s
         tailscale
       ];
-
       home-manager.users.yadunut.imports = with homeManagerModules; [
-        yadunut
         nixvim
         base
-        penguin
+        yadunut
       ];
 
       age.secrets.k3s.file = ../../../secrets/k3s.age;
       nut = {
-        boot.loader = "systemd";
+        boot.loader = "grub";
         k3s = {
-          role = "agent";
+          role = "server";
           tokenFile = config.age.secrets.k3s.path;
-          serverAddr = "https://${serverIp}:6443";
           nodeIp = ip;
           iface = "ztxh6lvd6t";
-          nvidia = true;
-        };
-      };
-
-      networking = {
-        hostName = hostname;
-        networkmanager.enable = true;
-        nftables.enable = false;
-        firewall = {
-          allowedTCPPorts = [
-            3000
-            3001
-          ];
         };
       };
 
       services.tailscale.enable = true;
-      virtualisation.podman = {
-        enable = true;
-        dockerCompat = false;
-        defaultNetwork.settings.dns_enabled = true;
+      networking = {
+        inherit hostname;
+        firewall = {
+          allowedTCPPorts = [
+            80
+            443
+          ];
+        };
       };
-
       system.stateVersion = "25.11";
     };
 }
