@@ -54,13 +54,16 @@
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        flake-parts.flakeModules.modules
+        ./modules/flake-parts.nix
         ./modules/devshells.nix
         ./modules/clan.nix
         ./modules/agenix.nix
         ./modules/nixvim.nix
-        ./modules/configurations
+        ./modules/configurations/darwin.nix
+        ./modules/configurations/nixos.nix
+        ./modules/configurations/yadunut-mbp
         ./modules/configurations/yadunut-mbp/home.nix
+        ./modules/configurations/yadunut-mbp/brew.nix
         ./modules/configurations/yadunut-mbp/brew.nix
         ./modules/zsh
         ./modules/git.nix
