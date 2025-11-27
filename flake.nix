@@ -73,6 +73,7 @@
         ./modules/nix.nix
         ./modules/sane-defaults.nix
         ./modules/ssh.nix
+        ./modules/boot.nix
       ];
       debug = true;
       flake =
@@ -86,8 +87,8 @@
         in
         {
           inherit (clan.config)
-            nixosConfigurations
-            nixosModules
+            # nixosConfigurations
+            # nixosModules
             # darwinConfigurations
             clanInternals
             ;
