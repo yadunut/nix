@@ -59,26 +59,28 @@
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
-        ./modules/flake-parts.nix
-        ./modules/devshells.nix
-        ./modules/clan.nix
-        ./modules/agenix.nix
-        ./modules/nixvim.nix
         ./modules/configurations/darwin.nix
         ./modules/configurations/nixos.nix
         ./modules/configurations/yadunut-mbp
         ./modules/configurations/yadunut-mbp/home.nix
         ./modules/configurations/yadunut-mbp/brew.nix
-        ./modules/configurations/yadunut-mbp/brew.nix
-        ./modules/zsh
+        ./modules/agenix.nix
+        ./modules/boot.nix
+        ./modules/clan.nix
+        ./modules/devshells.nix
+        ./modules/flake-parts.nix
         ./modules/git.nix
-        ./modules/yadunut.nix
         ./modules/home-manager.nix
         ./modules/homebrew.nix
+        ./modules/k3s.nix
         ./modules/nix.nix
+        ./modules/nixvim.nix
+        ./modules/nvidia.nix
         ./modules/sane-defaults.nix
         ./modules/ssh.nix
-        ./modules/boot.nix
+        ./modules/yadunut.nix
+        ./modules/zerotier.nix
+        ./modules/zsh
       ];
       debug = true;
       flake =
