@@ -1,6 +1,9 @@
-{ config, ... }:
+{
+  config,
+  ...
+}:
 let
-  hostname = "penguin";
+  hostname = "premhome-eagle-1";
   hosts = import ../../../hosts.nix;
   ip = hosts.machines.${hostname}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
@@ -15,51 +18,34 @@ in
         base
         home-manager
         k3s
-        nvidia
         tailscale
         yadunut
         zerotier
       ];
-
       home-manager.users.yadunut.imports = with homeManagerModules; [
-        yadunut
         nixvim
         base
-        penguin
+        yadunut
       ];
-
-      age.secrets.k3s.file = ../../../secrets/k3s.age;
+      age.secrets.k3s.file = ../../secrets/k3s.age;
       nut = {
         boot.loader = "systemd";
         k3s = {
+          enable = true;
           role = "agent";
           tokenFile = config.age.secrets.k3s.path;
           serverAddr = "https://${serverIp}:6443";
           nodeIp = ip;
           iface = "ztxh6lvd6t";
-          nvidia = true;
         };
       };
 
-      networking = {
-        hostName = hostname;
-        networkmanager.enable = true;
-        nftables.enable = false;
-        firewall = {
-          allowedTCPPorts = [
-            3000
-            3001
-          ];
-        };
+      networking.hostName = hostname;
+
+      services = {
+        qemuGuest.enable = true;
       };
 
-      services.tailscale.enable = true;
-      virtualisation.podman = {
-        enable = true;
-        dockerCompat = false;
-        defaultNetwork.settings.dns_enabled = true;
-      };
-
-      system.stateVersion = "25.11";
+      system.stateVersion = "24.11";
     };
 }
