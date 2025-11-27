@@ -6,9 +6,7 @@
 }:
 {
   configurations.nixos.penguin.module = {
-    imports = [
-      inputs.nixpkgs.nixosModules.notDetected
-    ];
+    imports = [ inputs.nixpkgs.nixosModules.notDetected ];
 
     boot.initrd.availableKernelModules = [
       "xhci_pci"

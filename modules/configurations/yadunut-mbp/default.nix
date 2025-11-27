@@ -13,6 +13,7 @@
         nixvim
         base
         yadunut-mbp
+        yadunut
       ];
     };
 

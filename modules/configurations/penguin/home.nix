@@ -11,13 +11,9 @@
           signingKey = keys.user.penguin-yadunut;
         };
       };
-      home.username = "yadunut";
       home.packages = with pkgs; [
-        ouch
         dive
         just
-        rsync
-        zellij
       ];
 
       services.syncthing = {
@@ -50,6 +46,5 @@
 
         };
       };
-      home.stateVersion = "25.11";
     };
 }

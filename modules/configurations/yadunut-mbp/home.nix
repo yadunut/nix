@@ -13,22 +13,16 @@
         };
       };
       home = {
-        username = "yadunut";
         packages = with pkgs; [
           entr
           jq
           just
-          rsync
           dive
-          ouch
-
           nil
           nixd
-
           claude-code
           codex
         ];
-        stateVersion = "25.05";
       };
     };
 }

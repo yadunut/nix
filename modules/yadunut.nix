@@ -33,4 +33,15 @@ in
         hashedPassword = "$y$j9T$XR5JhClixWp8d626AsjPZ.$PdN77P4SRt/GuJ9jVovcTSOh6ySf9alSsflFJG8n2A.";
       };
     };
+
+  flake.modules.homeManager.yadunut =
+    { pkgs, ... }:
+    {
+      home.username = "yadunut";
+      home.packages = with pkgs; [
+        ouch
+        rsync
+        zellij
+      ];
+    };
 }

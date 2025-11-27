@@ -3,18 +3,18 @@
   ...
 }:
 let
+  hostname = "penguin";
   hosts = import ../../../hosts.nix;
-  ip = hosts.machines.penguin.ip;
+  ip = hosts.machines.${hostname}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
 {
-  configurations.nixos.penguin.module =
+  configurations.nixos.${hostname}.module =
     { config, ... }:
     {
       imports = with nixosModules; [
-        agenix
         base
         yadunut
         home-manager
@@ -24,6 +24,7 @@ in
       ];
 
       home-manager.users.yadunut.imports = with homeManagerModules; [
+        yadunut
         nixvim
         base
         penguin
@@ -43,13 +44,12 @@ in
       };
 
       networking = {
-        hostName = "penguin";
+        hostName = hostname;
         networkmanager.enable = true;
         nftables.enable = false;
         firewall = {
           enable = true;
           allowedTCPPorts = [
-            22
             3000
             3001
           ];
@@ -64,7 +64,6 @@ in
         defaultNetwork.settings.dns_enabled = true;
       };
 
-      nixpkgs.hostPlatform = "x86_64-linux";
       system.stateVersion = "25.11";
     };
 }

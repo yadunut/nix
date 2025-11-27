@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.modules.nixos.agenix = {
+  flake.modules.nixos.base = {
     imports = [
       inputs.agenix.nixosModules.default
     ];
