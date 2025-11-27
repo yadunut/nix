@@ -1,17 +1,14 @@
-{
-  config,
-  ...
-}:
+{ config, ... }:
 let
-  hostname = "premhome-falcon-1";
+  hostName = "premhome-falcon-1";
   hosts = import ../../../hosts.nix;
-  ip = hosts.machines.${hostname}.ip;
+  ip = hosts.machines.${hostName}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
 {
-  configurations.nixos.${hostname}.module =
+  configurations.nixos.${hostName}.module =
     { config, ... }:
     {
       imports = with nixosModules; [
@@ -27,11 +24,10 @@ in
         base
         yadunut
       ];
-      age.secrets.k3s.file = ../../secrets/k3s.age;
+      age.secrets.k3s.file = ../../../secrets/k3s.age;
       nut = {
         boot.loader = "systemd";
         k3s = {
-          enable = true;
           role = "agent";
           tokenFile = config.age.secrets.k3s.path;
           serverAddr = "https://${serverIp}:6443";
@@ -40,7 +36,7 @@ in
         };
       };
 
-      networking.hostName = hostname;
+      networking.hostName = hostName;
 
       services = {
         qemuGuest.enable = true;

@@ -1,13 +1,13 @@
 { config, ... }:
 let
-  hostname = "nut-gc1";
+  hostName = "nut-gc1";
   hosts = import ../../../hosts.nix;
-  ip = hosts.machines.${hostname}.ip;
+  ip = hosts.machines.${hostName}.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
 {
-  configurations.nixos.${hostname}.module =
+  configurations.nixos.${hostName}.module =
     { config, ... }:
     {
       imports = with nixosModules; [
@@ -37,7 +37,7 @@ in
 
       services.tailscale.enable = true;
       networking = {
-        inherit hostname;
+        hostName = hostName;
         firewall = {
           allowedTCPPorts = [
             80

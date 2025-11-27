@@ -1,14 +1,14 @@
 { config, ... }:
 let
-  hostname = "nut-gc2";
+  hostName = "nut-gc2";
   hosts = import ../../../hosts.nix;
-  ip = hosts.machines.${hostname}.ip;
+  ip = hosts.machines.${hostName}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
 {
-  configurations.nixos.${hostname}.module =
+  configurations.nixos.${hostName}.module =
     { config, ... }:
     {
       imports = with nixosModules; [
@@ -37,7 +37,7 @@ in
         };
       };
 
-      networking.hostName = hostname;
+      networking.hostName = hostName;
       system.stateVersion = "25.11";
     };
 }

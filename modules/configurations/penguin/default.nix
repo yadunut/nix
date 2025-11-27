@@ -1,14 +1,14 @@
 { config, ... }:
 let
-  hostname = "penguin";
+  hostName = "penguin";
   hosts = import ../../../hosts.nix;
-  ip = hosts.machines.${hostname}.ip;
+  ip = hosts.machines.${hostName}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
 in
 {
-  configurations.nixos.${hostname}.module =
+  configurations.nixos.${hostName}.module =
     { config, ... }:
     {
       imports = with nixosModules; [
@@ -20,7 +20,6 @@ in
         yadunut
         zerotier
       ];
-
       home-manager.users.yadunut.imports = with homeManagerModules; [
         yadunut
         nixvim
@@ -42,7 +41,7 @@ in
       };
 
       networking = {
-        hostName = hostname;
+        inherit hostName;
         networkmanager.enable = true;
         nftables.enable = false;
         firewall = {
