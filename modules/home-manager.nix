@@ -20,4 +20,11 @@
         useUserPackages = true;
       };
     };
+
+  flake.modules.homeManager.base =
+    { ... }:
+    {
+      nixpkgs.config.allowUnfree = true;
+      programs.home-manager.enable = true;
+    };
 }

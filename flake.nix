@@ -64,6 +64,10 @@
         ./modules/configurations/yadunut-mbp
         ./modules/configurations/yadunut-mbp/home.nix
         ./modules/configurations/yadunut-mbp/brew.nix
+        ./modules/configurations/penguin
+        ./modules/configurations/penguin/disko.nix
+        ./modules/configurations/penguin/hardware.nix
+        ./modules/configurations/penguin/home.nix
         ./modules/agenix.nix
         ./modules/boot.nix
         ./modules/clan.nix

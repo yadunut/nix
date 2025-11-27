@@ -14,24 +14,21 @@
       };
       home = {
         username = "yadunut";
-        packages = [
-          pkgs.entr
-          pkgs.jq
-          pkgs.just
-          pkgs.rsync
-          pkgs.dive
-          pkgs.ouch
+        packages = with pkgs; [
+          entr
+          jq
+          just
+          rsync
+          dive
+          ouch
 
-          pkgs.nil
-          pkgs.nixd
+          nil
+          nixd
 
-          pkgs.claude-code
-          pkgs.codex
+          claude-code
+          codex
         ];
         stateVersion = "25.05";
       };
-
-      nixpkgs.config.allowUnfree = true;
-      programs.home-manager.enable = true;
     };
 }
