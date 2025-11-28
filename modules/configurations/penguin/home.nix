@@ -1,14 +1,14 @@
-{ ... }:
+{ hosts, ... }:
 {
   flake.modules.homeManager.penguin =
     { pkgs, ... }:
     let
-      keys = import ../../../hosts.nix;
+      hosts = hosts;
     in
     {
       nut = {
         git = {
-          signingKey = keys.user.penguin-yadunut;
+          signingKey = hosts.user.penguin-yadunut;
         };
       };
       home.packages = with pkgs; [

@@ -1,7 +1,6 @@
-{ config, ... }:
+{ config, hosts, ... }:
 let
   hostName = "premhome-falcon-1";
-  hosts = import ../../../hosts.nix;
   ip = hosts.machines.${hostName}.ip;
   serverIp = hosts.machines.nut-gc1.ip;
   nixosModules = config.flake.modules.nixos;

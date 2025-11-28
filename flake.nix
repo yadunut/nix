@@ -53,9 +53,13 @@
 
   outputs =
     { flake-parts, self, ... }@inputs:
+    let
+      hosts = import ./hosts.nix;
+    in
     flake-parts.lib.mkFlake { inherit inputs; } {
+      debug = true;
+      _module.args.hosts = hosts;
       imports = [ (inputs.import-tree ./modules) ];
-      # debug = true;
       systems = [
         "x86_64-linux"
         "aarch64-linux"

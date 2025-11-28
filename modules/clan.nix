@@ -1,9 +1,13 @@
-{ inputs, self, ... }:
 {
-  # imports = [ inputs.clan-core.flakeModules.default ];
+  inputs,
+  self,
+  config,
+  hosts,
+  ...
+}:
+{
   flake =
     let
-      hosts = import ../hosts.nix;
       clan = inputs.clan-core.lib.clan {
         inherit self;
         specialArgs = { inherit inputs; };

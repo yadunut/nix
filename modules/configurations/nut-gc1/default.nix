@@ -1,7 +1,6 @@
-{ config, ... }:
+{ config, hosts, ... }:
 let
   hostName = "nut-gc1";
-  hosts = import ../../../hosts.nix;
   ip = hosts.machines.${hostName}.ip;
   nixosModules = config.flake.modules.nixos;
   homeManagerModules = config.flake.modules.homeManager;
