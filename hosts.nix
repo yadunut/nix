@@ -3,23 +3,40 @@ rec {
   machines = {
     "nut-gc1" = {
       ip = "10.222.0.13";
+      publicIp = "167.253.159.47";
       user = "yadunut";
+      extraArgs = {
+        machineClass = "nixos";
+      };
     };
     "nut-gc2" = {
       ip = "10.222.0.87";
+      publicIp = "103.149.46.7";
       user = "yadunut";
+      extraArgs = {
+        machineClass = "nixos";
+      };
     };
     penguin = {
       ip = "10.222.0.249";
       user = "yadunut";
+      extraArgs = {
+        machineClass = "nixos";
+      };
     };
     premhome-falcon-1 = {
       ip = "10.222.0.198";
       user = "yadunut";
+      extraArgs = {
+        machineClass = "nixos";
+      };
     };
     premhome-eagle-1 = {
       ip = "10.222.0.118";
       user = "yadunut";
+      extraArgs = {
+        machineClass = "nixos";
+      };
     };
     yadunut-mbp = {
       ip = "localhost";

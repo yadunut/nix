@@ -11,28 +11,31 @@
       clan = inputs.clan-core.lib.clan {
         inherit self;
         specialArgs = { inherit inputs; };
-        imports = [
-          {
-            meta.name = "nut-clan";
-            meta.tld = "nut";
-            inventory.machines = builtins.mapAttrs (
-              name: cfg:
-              {
-                deploy.targetHost = "${cfg.user}@${cfg.ip}";
-              }
-              // (if cfg ? extraArgs then cfg.extraArgs else { })
-            ) hosts.machines;
-
-            inventory.instances = { };
-            machines = { };
-          }
+        imports = with config.flake.modules.clan; [
+          base
+          wireguard
         ];
       };
     in
     {
-      inherit (clan.config) clanInternals;
+      # inherit (clan.config) clanInternals;
+      inherit (clan.config) clanInternals nixosConfigurations darwinConfigurations;
       clan = clan.config;
+      modules.clan.base =
+        { ... }:
+        {
+          meta.name = "nut-clan";
+          meta.tld = "nut";
+          inventory.machines = builtins.mapAttrs (
+            name: cfg:
+            {
+              deploy.targetHost = "${cfg.user}@${cfg.ip}";
+            }
+            // (if cfg ? extraArgs then cfg.extraArgs else { })
+          ) hosts.machines;
+        };
     };
+
   perSystem =
     { inputs', ... }:
     {

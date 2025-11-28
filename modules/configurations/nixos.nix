@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  inputs,
-  ...
-}:
+{ lib, config, ... }:
 {
   options.configurations.nixos = lib.mkOption {
     type = lib.types.lazyAttrsOf (
@@ -15,9 +10,15 @@
     );
   };
 
-  config.flake = {
-    nixosConfigurations = lib.mapAttrs (
-      name: { module }: inputs.nixpkgs.lib.nixosSystem { modules = [ module ]; }
-    ) config.configurations.nixos;
-  };
+  config.flake.modules.clan.base =
+    { ... }:
+    {
+      machines = lib.mapAttrs (
+        _:
+        { module }:
+        {
+          imports = [ module ];
+        }
+      ) config.configurations.nixos;
+    };
 }

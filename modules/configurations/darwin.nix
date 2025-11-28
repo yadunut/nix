@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  inputs,
-  ...
-}:
+{ lib, config, ... }:
 {
   options.configurations.darwin = lib.mkOption {
     type = lib.types.lazyAttrsOf (
@@ -14,9 +9,15 @@
       }
     );
   };
-  config.flake = {
-    darwinConfigurations = lib.mapAttrs (
-      name: { module }: inputs.nix-darwin.lib.darwinSystem { modules = [ module ]; }
-    ) config.configurations.darwin;
-  };
+  config.flake.modules.clan.base =
+    { ... }:
+    {
+      machines = lib.mapAttrs (
+        _:
+        { module }:
+        {
+          imports = [ module ];
+        }
+      ) config.configurations.darwin;
+    };
 }

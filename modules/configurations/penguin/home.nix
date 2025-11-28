@@ -2,9 +2,6 @@
 {
   flake.modules.homeManager.penguin =
     { pkgs, ... }:
-    let
-      hosts = hosts;
-    in
     {
       nut = {
         git = {
