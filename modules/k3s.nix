@@ -73,6 +73,9 @@ in
               ])
               ++ cfg.extraFlags;
             };
+            boot.kernel.sysctl = {
+              "net.ipv4.ip_forward" = 1;
+            };
             environment.systemPackages = [ pkgs.nfs-utils ];
             services.openiscsi = {
               enable = true;
