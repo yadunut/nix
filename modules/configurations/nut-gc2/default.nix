@@ -6,10 +6,11 @@ let
 in
 {
   configurations.nixos.${hostName}.module =
-    { ... }:
+    { config, ... }:
     {
       imports = with nixosModules; [
         base
+        garage
         home-manager
         yadunut
       ];
@@ -20,6 +21,9 @@ in
       ];
 
       nut = {
+        garage.metadataDir = "/srv/garage/meta";
+        garage.dataDir = "/srv/garage/data";
+        garage.publicAddrSubnet = config.clan.core.networking.zerotier.subnet;
         boot.loader = "grub";
       };
 
