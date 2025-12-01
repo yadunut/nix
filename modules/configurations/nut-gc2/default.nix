@@ -12,11 +12,10 @@ in
         base
         garage
         home-manager
-        yadunut
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
-        nixvim
         base
+        nixvim
         yadunut
       ];
 

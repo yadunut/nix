@@ -12,7 +12,6 @@ in
         base
         home-manager
         nvidia
-        yadunut
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
         yadunut

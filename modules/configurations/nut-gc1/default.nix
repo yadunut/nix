@@ -10,7 +10,6 @@ in
     {
       imports = with nixosModules; [
         base
-        yadunut
         home-manager
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [

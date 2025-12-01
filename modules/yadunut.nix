@@ -14,7 +14,7 @@
         openssh.authorizedKeys.keys = [ hosts.user.yadunut ];
       };
     };
-  flake.modules.nixos.yadunut =
+  flake.modules.nixos.base =
     { pkgs, ... }:
     {
       users.users.yadunut = {
