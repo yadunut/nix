@@ -19,14 +19,14 @@
     {
       users.users.yadunut = {
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keys = [ hosts.user.yadunut ];
+        openssh.authorizedKeys.keys = hosts.usersKeys;
         isNormalUser = true;
         hashedPassword = "$y$j9T$XR5JhClixWp8d626AsjPZ.$PdN77P4SRt/GuJ9jVovcTSOh6ySf9alSsflFJG8n2A.";
         extraGroups = [ "wheel" ];
       };
       users.users.root = {
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keys = [ hosts.user.yadunut ];
+        openssh.authorizedKeys.keys = hosts.usersKeys;
         hashedPassword = "$y$j9T$XR5JhClixWp8d626AsjPZ.$PdN77P4SRt/GuJ9jVovcTSOh6ySf9alSsflFJG8n2A.";
       };
     };

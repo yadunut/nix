@@ -13,6 +13,14 @@ let
   }) peers;
 in
 {
+  flake.modules.nixos.base =
+    { config, ... }:
+    lib.mkIf (config.networking.wireguard.interfaces ? wireguard) {
+      networking.firewall.trustedInterfaces = [ "wireguard" ];
+      networking.firewall.extraForwardRules = ''
+        iifname "wireguard" accept
+      '';
+    };
   flake.modules.clan.wireguard = {
     inventory.instances.wireguard = {
       module.name = "wireguard";

@@ -2,7 +2,6 @@ rec {
   # Centralized machine IP addresses and deployment configuration
   machines = {
     "nut-gc1" = {
-      ip = "10.222.0.13";
       targetIp = "nut-gc1.wireguard";
       publicIp = "167.253.159.47";
       user = "yadunut";
@@ -11,7 +10,6 @@ rec {
       };
     };
     "nut-gc2" = {
-      ip = "10.222.0.87";
       targetIp = "nut-gc2.wireguard";
       publicIp = "103.149.46.7";
       user = "yadunut";
@@ -20,7 +18,6 @@ rec {
       };
     };
     penguin = {
-      ip = "10.222.0.249";
       targetIp = "penguin.wireguard";
       user = "yadunut";
       extraArgs = {
@@ -28,7 +25,6 @@ rec {
       };
     };
     premhome-falcon-1 = {
-      ip = "10.222.0.198";
       targetIp = "premhome-falcon-1.wireguard";
       user = "yadunut";
       extraArgs = {
@@ -36,7 +32,6 @@ rec {
       };
     };
     premhome-eagle-1 = {
-      ip = "10.222.0.118";
       targetIp = "premhome-eagle-1.wireguard";
       user = "yadunut";
       extraArgs = {
@@ -44,7 +39,6 @@ rec {
       };
     };
     yadunut-mbp = {
-      ip = "localhost";
       targetIp = "localhost";
       user = "root";
       extraArgs = {
@@ -57,6 +51,7 @@ rec {
   user = {
     yadunut = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJXOpmWsAnl2RtOuJJMRUx+iJTwf2RWJ1iS3FqXJFzFG yadunut";
     penguin-yadunut = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOEg5wsPLOZvU6lT8cMUsStQqalh/Hw5u104QhOYPS8E yadunut@penguin";
+    nut-gc2-yadunut = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7sRbDuEoPXgIg7T+P4Hu8sORen2AhsFhrS5uI+z/eT yadunut@nut-gc2";
   };
   machine = {
     penguin = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF0NLOa9NNz7r3QODU0Oe/a5m+PFzcpM20aLwf+0wojT root@penguin";
