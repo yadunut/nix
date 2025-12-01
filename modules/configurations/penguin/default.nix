@@ -12,7 +12,6 @@ in
         base
         home-manager
         nvidia
-        tailscale
         yadunut
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
@@ -38,7 +37,6 @@ in
         };
       };
 
-      services.tailscale.enable = true;
       virtualisation.podman = {
         enable = true;
         dockerCompat = false;

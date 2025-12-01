@@ -44,7 +44,6 @@
         "spotify"
         "steam"
         "syncthing-app"
-        "tailscale-app"
         "telegram"
         "the-unarchiver"
         "transmission"

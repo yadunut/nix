@@ -12,7 +12,6 @@ in
         base
         yadunut
         home-manager
-        tailscale
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
         nixvim
@@ -24,7 +23,6 @@ in
         boot.loader = "grub";
       };
 
-      services.tailscale.enable = true;
       networking = {
         hostName = hostName;
         firewall = {

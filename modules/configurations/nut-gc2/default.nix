@@ -11,7 +11,6 @@ in
       imports = with nixosModules; [
         base
         home-manager
-        tailscale
         yadunut
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
