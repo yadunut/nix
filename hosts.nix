@@ -3,6 +3,7 @@ rec {
   machines = {
     "nut-gc1" = {
       ip = "10.222.0.13";
+      targetIp = "nut-gc1.wireguard";
       publicIp = "167.253.159.47";
       user = "yadunut";
       extraArgs = {
@@ -11,6 +12,7 @@ rec {
     };
     "nut-gc2" = {
       ip = "10.222.0.87";
+      targetIp = "nut-gc2.wireguard";
       publicIp = "103.149.46.7";
       user = "yadunut";
       extraArgs = {
@@ -19,6 +21,7 @@ rec {
     };
     penguin = {
       ip = "10.222.0.249";
+      targetIp = "penguin.wireguard";
       user = "yadunut";
       extraArgs = {
         machineClass = "nixos";
@@ -26,6 +29,7 @@ rec {
     };
     premhome-falcon-1 = {
       ip = "10.222.0.198";
+      targetIp = "premhome-falcon-1.wireguard";
       user = "yadunut";
       extraArgs = {
         machineClass = "nixos";
@@ -33,6 +37,7 @@ rec {
     };
     premhome-eagle-1 = {
       ip = "10.222.0.118";
+      targetIp = "premhome-eagle-1.wireguard";
       user = "yadunut";
       extraArgs = {
         machineClass = "nixos";
@@ -40,6 +45,7 @@ rec {
     };
     yadunut-mbp = {
       ip = "localhost";
+      targetIp = "localhost";
       user = "root";
       extraArgs = {
         machineClass = "darwin";

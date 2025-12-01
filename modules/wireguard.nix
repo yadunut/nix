@@ -25,9 +25,8 @@ in
           port = 51820;
         };
       };
-      roles.peer = {
-        machines = peerMachines;
-      };
+      roles.peer.machines = peerMachines;
+
     };
   };
 }

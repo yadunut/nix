@@ -14,6 +14,7 @@
         imports = with config.flake.modules.clan; [
           base
           wireguard
+          zerotier
         ];
       };
     in
@@ -29,7 +30,7 @@
           inventory.machines = builtins.mapAttrs (
             name: cfg:
             {
-              deploy.targetHost = "${cfg.user}@${cfg.ip}";
+              deploy.targetHost = "${cfg.user}@${cfg.targetIp}";
             }
             // (if cfg ? extraArgs then cfg.extraArgs else { })
           ) hosts.machines;

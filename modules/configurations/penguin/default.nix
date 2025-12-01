@@ -17,7 +17,6 @@ in
         nvidia
         tailscale
         yadunut
-        zerotier
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
         yadunut
@@ -33,8 +32,6 @@ in
           role = "agent";
           tokenFile = config.age.secrets.k3s.path;
           serverAddr = "https://${serverIp}:6443";
-          nodeIp = ip;
-          iface = "ztxh6lvd6t";
           nvidia = true;
         };
       };

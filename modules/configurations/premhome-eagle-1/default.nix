@@ -16,7 +16,6 @@ in
         k3s
         tailscale
         yadunut
-        zerotier
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
         nixvim
@@ -30,8 +29,6 @@ in
           role = "agent";
           tokenFile = config.age.secrets.k3s.path;
           serverAddr = "https://${serverIp}:6443";
-          nodeIp = ip;
-          iface = "ztxh6lvd6t";
         };
       };
 

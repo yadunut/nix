@@ -13,7 +13,6 @@ in
         base
         yadunut
         home-manager
-        zerotier
         k3s
         tailscale
       ];
@@ -29,8 +28,6 @@ in
         k3s = {
           role = "server";
           tokenFile = config.age.secrets.k3s.path;
-          nodeIp = ip;
-          iface = "ztxh6lvd6t";
         };
       };
 
