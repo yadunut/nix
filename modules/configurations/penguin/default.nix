@@ -25,17 +25,7 @@ in
         boot.loader = "systemd";
       };
 
-      networking = {
-        inherit hostName;
-        networkmanager.enable = true;
-        nftables.enable = false;
-        firewall = {
-          allowedTCPPorts = [
-            3000
-            3001
-          ];
-        };
-      };
+      networking.networkmanager.enable = true;
 
       virtualisation.podman = {
         enable = true;
@@ -43,6 +33,7 @@ in
         defaultNetwork.settings.dns_enabled = true;
       };
 
+      networking.hostName = hostName;
       system.stateVersion = "25.11";
     };
 }

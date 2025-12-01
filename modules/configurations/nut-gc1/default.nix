@@ -23,15 +23,7 @@ in
         boot.loader = "grub";
       };
 
-      networking = {
-        hostName = hostName;
-        firewall = {
-          allowedTCPPorts = [
-            80
-            443
-          ];
-        };
-      };
+      networking.hostName = hostName;
       system.stateVersion = "25.11";
     };
 }
