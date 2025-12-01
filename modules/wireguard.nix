@@ -4,14 +4,13 @@ let
   peers = lib.filterAttrs (name: machine: !(machine ? publicIp)) hosts.machines;
 
   # Create controller machines dynamically
-  controllerMachines = lib.mapAttrs' (name: machine: lib.nameValuePair name { }) controllers;
+  controllerMachines = lib.mapAttrs (name: machine: {
+    settings.endpoint = machine.publicIp;
+  }) controllers;
 
-  peerMachines = lib.mapAttrs' (
-    name: machine:
-    lib.nameValuePair name {
-      settings.controller = "nut-gc1";
-    }
-  ) peers;
+  peerMachines = lib.mapAttrs (name: machine: {
+    settings.controller = "nut-gc1";
+  }) peers;
 in
 {
   flake.modules.clan.wireguard = {
@@ -20,10 +19,6 @@ in
       module.input = "clan-core";
       roles.controller = {
         machines = controllerMachines;
-        settings = {
-          endpoint = hosts.machines.nut-gc1.publicIp;
-          port = 51820;
-        };
       };
       roles.peer.machines = peerMachines;
 

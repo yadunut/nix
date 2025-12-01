@@ -1,5 +1,6 @@
 {
   lib,
+  config,
   ...
 }:
 let
@@ -9,10 +10,16 @@ let
     mkMerge
     types
     ;
+  inherit (config.flake.lib.zerotier) toInterfaceName;
 in
+
 {
   flake.modules.nixos.k3s =
     { config, pkgs, ... }:
+    let
+      interfaceName = toInterfaceName config.clan.networking.zerotier.networkId;
+      nodeIp = config.clan.core.vars.generators.zerotier.files.zerotier-ip.value;
+    in
     {
       options.nut.k3s = {
         tokenFile = mkOption {
@@ -32,12 +39,6 @@ in
         serverAddr = mkOption {
           type = types.str;
           default = "";
-        };
-        nodeIp = mkOption {
-          type = types.nonEmptyStr;
-        };
-        iface = mkOption {
-          type = types.nonEmptyStr;
         };
         extraFlags = mkOption {
           type = types.listOf types.str;
@@ -62,14 +63,14 @@ in
               clusterInit = isServer && cfg.clusterInit;
               serverAddr = cfg.serverAddr;
               extraFlags = [
-                "--node-ip ${cfg.nodeIp}"
-                "--flannel-iface ${cfg.iface}"
+                "--node-ip ${nodeIp}"
+                "--flannel-iface ${interfaceName}"
               ]
               ++ (lib.optionals isServer [
                 "--disable=servicelb"
                 "--disable=traefik"
                 "--flannel-backend=host-gw"
-                "--tls-san ${cfg.nodeIp}"
+                "--tls-san ${nodeIp}"
               ])
               ++ cfg.extraFlags;
             };
