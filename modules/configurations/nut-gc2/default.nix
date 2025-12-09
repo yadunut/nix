@@ -12,6 +12,7 @@ in
         base
         garage
         home-manager
+        caddy
       ];
       home-manager.users.yadunut.imports = with homeManagerModules; [
         base

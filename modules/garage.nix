@@ -1,4 +1,3 @@
-{ ... }:
 {
   flake.modules.nixos.garage =
     {
@@ -44,12 +43,12 @@
               s3_api = {
                 s3_region = "garage";
                 api_bind_addr = "[::]:3900";
-                root_domain = ".s3.yadunut.dev";
+                root_domain = ".s3.garage.yadunut.com";
               };
 
               s3_web = {
                 bind_addr = "[::]:3902";
-                root_domain = ".web.yadunut.dev";
+                root_domain = ".web.garage.yadunut.com";
                 index = "index.html";
               };
 
@@ -68,7 +67,7 @@
             serviceConfig = {
               SupplementaryGroups = [ "garage-data" ];
               LoadCredential = [
-                "rpc_secret_path:${config.clan.core.vars.generators.garage.files.rpc_secret.path}"
+                "rpc_secret_path:${config.clan.core.vars.generators.garage-shared.files.rpc_secret.path}"
                 "admin_token_path:${config.clan.core.vars.generators.garage.files.admin_token.path}"
                 "metrics_token_path:${config.clan.core.vars.generators.garage.files.metrics_token.path}"
               ];
@@ -79,13 +78,19 @@
               ];
             };
           };
-          clan.core.vars.generators.garage = {
+          clan.core.vars.generators.garage-shared = {
+            share = true;
             files."rpc_secret" = { };
+            runtimeInputs = [ pkgs.openssl ];
+            script = ''
+              openssl rand -hex 32 > $out/rpc_secret
+            '';
+          };
+          clan.core.vars.generators.garage = {
             files."admin_token" = { };
             files."metrics_token" = { };
             runtimeInputs = [ pkgs.openssl ];
             script = ''
-              openssl rand -hex 32 > $out/rpc_secret
               openssl rand -base64 32 > $out/admin_token
               openssl rand -base64 32 > $out/metrics_token
             '';
