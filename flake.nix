@@ -29,7 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
       inputs.systems.follows = "dedupe_systems";
-      inputs.nuschtosSearch.follows = "dedupe_nuschtosSearch";
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -44,15 +43,10 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "dedupe_systems";
     };
-    dedupe_nuschtosSearch = {
-      url = "github:NuschtOS/search";
-      inputs.flake-utils.follows = "dedupe_flake-utils";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
-    { flake-parts, self, ... }@inputs:
+    { flake-parts, ... }@inputs:
     let
       hosts = import ./hosts.nix;
     in
