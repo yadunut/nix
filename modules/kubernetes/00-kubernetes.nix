@@ -44,6 +44,18 @@
           description = "Domain suffix to use for hostname aliases in /etc/hosts";
           default = settings.domain or "k8s.internal";
         };
+        etcd = {
+          endpoints = lib.mkOption {
+            type = lib.types.str;
+            description = "Comma-separated list of etcd endpoints for kube-apiserver.";
+            default = "";
+          };
+          initialCluster = lib.mkOption {
+            type = lib.types.str;
+            description = "Initial cluster configuration for etcd.";
+            default = "";
+          };
+        };
       };
       config = {
         nut.kubernetes.instanceName = lib.mkDefault instanceName;
@@ -70,7 +82,7 @@
     };
 
   flake.modules."clan.service".kubernetes =
-    { inputs, ... }:
+    { inputs, clanLib, ... }:
     let
       # common options for all Kubernetes machines
       sharedInterface =
@@ -103,10 +115,22 @@
             imports = [ sharedInterface ];
           };
         perInstance =
-          { settings, instanceName, ... }:
+          {
+            settings,
+            instanceName,
+            roles,
+            ...
+          }:
           {
             nixosModule = {
-              _module.args = { inherit settings instanceName; };
+              _module.args = {
+                inherit
+                  settings
+                  instanceName
+                  roles
+                  clanLib
+                  ;
+              };
               imports = with config.flake.modules.nixos; [
                 kubernetes-controller
                 kubernetes-common
@@ -148,6 +172,7 @@
       module.input = "self";
 
       roles.controller.machines.nut-gc1 = { };
+      roles.controller.machines.nut-gc2 = { };
       roles.compute.machines.nut-gc2 = { };
       roles.compute.machines.premhome-eagle-1 = { };
       roles.compute.machines.premhome-eagle-2 = { };
