@@ -13,3 +13,7 @@ crop_slides() {
   # Crop left 2/3 of a 1280x640 video (≈853 px wide)
   nix run "nixpkgs#ffmpeg" -- -i "$input" -filter:v "crop=853:640:0:0" -c:a copy "$output"
 }
+
+mp3() {
+  nix shell "nixpkgs#yt-dlp" "nixpkgs#ffmpeg" --command yt-dlp -x --audio-format mp3 $@
+}
