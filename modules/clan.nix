@@ -15,6 +15,7 @@
           base
           wireguard
           zerotier
+          kubernetes
         ];
       };
     in
@@ -25,6 +26,10 @@
       modules.clan.base =
         { ... }:
         {
+          modules = {
+            "@yadunut/kubernetes" = config.flake.modules."clan.service".kubernetes;
+          };
+
           meta.name = "nut-clan";
           meta.tld = "nut";
           inventory.machines = builtins.mapAttrs (
