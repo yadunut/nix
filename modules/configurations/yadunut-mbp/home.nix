@@ -11,14 +11,15 @@
       };
       home = {
         packages = with pkgs; [
-          entr
-          jq
-          just
-          dive
-          nil
-          nixd
           claude-code
           codex
+          dive
+          entr
+          jjui
+          jq
+          just
+          nil
+          nixd
         ];
       };
     };
