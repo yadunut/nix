@@ -4,7 +4,7 @@
     make-shell.url = "github:nicknovitski/make-shell";
     import-tree.url = "github:vic/import-tree";
     clan-core = {
-      url = "https://git.yadunut.dev/yadunut/clan-core/archive/main.tar.gz";
+      url = "https://github.com/yadunut/clan-core/archive/main.tar.gz";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "dedupe_systems";
       inputs.flake-parts.follows = "flake-parts";
