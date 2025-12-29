@@ -167,18 +167,26 @@
           in
           {
             nixosModule = {
-              _module.args = {
-                inherit
-                  settings
-                  instanceName
-                  roles
-                  clanLib
-                  ;
-              };
               imports =
                 with config.flake.modules.nixos;
                 [ kubernetes-compute ] ++ (if isAlsoController then [ ] else [ kubernetes-common ]);
-            };
+            }
+            # Only set _module.args if not also a controller (controller role already sets them)
+            // (
+              if isAlsoController then
+                { }
+              else
+                {
+                  _module.args = {
+                    inherit
+                      settings
+                      instanceName
+                      roles
+                      clanLib
+                      ;
+                  };
+                }
+            );
           };
       };
     };
