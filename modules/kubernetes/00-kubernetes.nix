@@ -41,7 +41,7 @@
         };
         domain = lib.mkOption {
           type = lib.types.str;
-          description = "Domain suffix to use for hostname aliases in /etc/hosts";
+          description = "Domain suffix to use for hostname aliases";
           default = settings.domain or "k8s.internal";
         };
         etcd = {
@@ -55,6 +55,11 @@
             description = "Initial cluster configuration for etcd.";
             default = "";
           };
+        };
+        apiServerEndpoint = lib.mkOption {
+          type = lib.types.nullOr lib.types.str;
+          description = "API server endpoint URL (e.g., https://[ip]:6443). If null, will auto-detect from first control-plane node.";
+          default = settings.apiServerEndpoint or null;
         };
       };
       config = {
@@ -102,6 +107,11 @@
             type = lib.types.str;
             default = "k8s.internal";
             description = "Domain suffix to use for hostname aliases in /etc/hosts";
+          };
+          options.apiServerEndpoint = lib.mkOption {
+            type = lib.types.nullOr lib.types.str;
+            default = null;
+            description = "API server endpoint URL. If null, auto-detected from first controller node.";
           };
         };
     in
@@ -157,7 +167,14 @@
           in
           {
             nixosModule = {
-              _module.args = { inherit settings instanceName; };
+              _module.args = {
+                inherit
+                  settings
+                  instanceName
+                  roles
+                  clanLib
+                  ;
+              };
               imports =
                 with config.flake.modules.nixos;
                 [ kubernetes-compute ] ++ (if isAlsoController then [ ] else [ kubernetes-common ]);
@@ -172,7 +189,9 @@
       module.input = "self";
 
       roles.controller.machines.nut-gc1 = { };
-      roles.controller.machines.nut-gc2 = { };
+      # roles.controller.machines.nut-gc2 = { };
+
+      roles.compute.machines.nut-gc1 = { };
       roles.compute.machines.nut-gc2 = { };
       roles.compute.machines.premhome-eagle-1 = { };
       roles.compute.machines.premhome-eagle-2 = { };
