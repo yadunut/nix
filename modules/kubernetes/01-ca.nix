@@ -70,12 +70,51 @@
     {
       pkgs,
       config,
+      lib,
+      clanLib ? null,
+      roles ? { },
       ...
     }:
     let
       hostname = config.networking.hostName;
       nodeIp = config.nut.kubernetes.nodeIP;
+      serviceCIDR = config.nut.kubernetes.serviceCIDR;
+      clusterDomain = config.nut.kubernetes.domain;
       generators = config.clan.core.vars.generators;
+
+      # Get list of controller machine names from roles
+      controllerMachineNames = builtins.attrNames (roles.controller.machines or { });
+
+      # Helper function to get zerotier IP for a given machine
+      getZerotierIp =
+        machineName:
+        if clanLib != null then
+          clanLib.getPublicValue {
+            flake = config.clan.core.settings.directory;
+            machine = machineName;
+            generator = "zerotier";
+            file = "zerotier-ip";
+          }
+        else
+          null;
+
+      # Get all controller IPs for API server SANs (for HA)
+      allControllerIps = lib.filter (ip: ip != null) (map getZerotierIp controllerMachineNames);
+
+      # Calculate first service IP from service CIDR (for kubernetes.default ClusterIP)
+      # For "fd00:10:97::/108", the first usable IP is "fd00:10:97::1"
+      calculateFirstServiceIP =
+        cidr:
+        let
+          parts = lib.splitString "/" cidr;
+          baseAddr = lib.head parts;
+          cleanAddr = lib.removeSuffix "]" (lib.removePrefix "[" baseAddr);
+          # Replace "::" with "::1" to get the first usable address
+          firstIP = lib.replaceStrings [ "::" ] [ "::1" ] cleanAddr;
+        in
+        firstIP;
+
+      kubernetesServiceIP = calculateFirstServiceIP serviceCIDR;
 
       # Helper function to generate a certificate signed by kubernetes CA
       mkK8sCertificate =
@@ -207,6 +246,7 @@
         };
 
         # Kubernetes API Server certificate
+        # SANs include all controller IPs for HA, plus the kubernetes service ClusterIP
         kubernetes-apiserver-crt = mkK8sCertificate {
           name = "apiserver";
           commonName = "kube-apiserver";
@@ -223,10 +263,12 @@
             "kubernetes"
             "kubernetes.default"
             "kubernetes.default.svc"
-            "kubernetes.default.svc.cluster.local"
+            "kubernetes.default.svc.${clusterDomain}"
             hostname
             nodeIp
-          ];
+            kubernetesServiceIP # First service IP for kubernetes.default ClusterIP
+          ]
+          ++ allControllerIps; # All controller IPs for HA
         };
 
         # API Server etcd client certificate (signed by etcd CA)
