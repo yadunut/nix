@@ -6,8 +6,12 @@
         # Kubernetes CA (signs all Kubernetes component certificates)
         kubernetes-ca-crt = {
           share = true;
-          files."ca.key".secret = true;
-          files."ca.key".mode = "0440";
+          files."ca.key" = {
+            secret = true;
+            mode = "0440";
+            owner = "kubernetes";
+            group = "kubernetes";
+          };
           files."ca.crt".secret = false;
 
           runtimeInputs = [ pkgs.step-cli ];
@@ -371,10 +375,10 @@
 
       systemd.tmpfiles.rules = [
         # Create PKI directory structure
-        "d /var/lib/kubernetes/pki 0755 kubernetes kubernetes -"
+        "d /var/lib/kubernetes/pki 0755 root root -"
         "d /var/lib/kubernetes/pki/etcd 0755 etcd etcd -"
         "d /var/lib/etcd 0755 etcd etcd -"
-        "d /var/lib/kubelet 0755 kubernetes kubernetes -"
+        "d /var/lib/kubelet 0755 root root -"
 
         # Kubernetes CA
         "L+ /var/lib/kubernetes/pki/ca.crt - - - - ${generators.kubernetes-ca-crt.files."ca.crt".path}"
@@ -551,7 +555,7 @@
       };
 
       systemd.tmpfiles.rules = [
-        "d /var/lib/kubelet 0755 kubernetes kubernetes -"
+        "d /var/lib/kubelet 0755 root root -"
         "L+ /var/lib/kubelet/ca.crt - - - - ${generators.kubernetes-ca-crt.files."ca.crt".path}"
         "L+ /var/lib/kubelet/kubelet-server.crt - - - - ${
           generators.kubernetes-kubelet-server-crt.files."kubelet-server.crt".path

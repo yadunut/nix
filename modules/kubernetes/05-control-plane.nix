@@ -9,6 +9,7 @@
       generators = config.clan.core.vars.generators;
       clusterName = config.nut.kubernetes.instanceName;
       clusterCIDR = config.nut.kubernetes.clusterCIDR;
+      clusterDomain = config.nut.kubernetes.domain;
       serviceCIDR = config.nut.kubernetes.serviceCIDR;
       nodeIP = config.nut.kubernetes.nodeIP;
       etcdEndpoints = config.nut.kubernetes.etcd.endpoints;
@@ -111,6 +112,7 @@
         after = [
           "network.target"
           "etcd.service"
+          "systemd-tmpfiles-setup.service"
         ];
         requires = [ "etcd.service" ];
 
@@ -136,7 +138,7 @@
               --runtime-config=api/all=true \
               --service-account-key-file=/var/lib/kubernetes/pki/sa.pub \
               --service-account-signing-key-file=/var/lib/kubernetes/pki/sa.key \
-              --service-account-issuer=https://kubernetes.default.svc.cluster.local \
+              --service-account-issuer=https://kubernetes.default.svc.${clusterDomain} \
               --service-cluster-ip-range=${serviceCIDR} \
               --service-node-port-range=30000-32767 \
               --tls-cert-file=/var/lib/kubernetes/pki/apiserver.crt \
@@ -163,7 +165,10 @@
         description = "Kubernetes Scheduler";
         documentation = [ "https://github.com/kubernetes/kubernetes" ];
         wantedBy = [ "kubernetes.target" ];
-        after = [ "kube-apiserver.service" ];
+        after = [
+          "kube-apiserver.service"
+          "systemd-tmpfiles-setup.service"
+        ];
         requires = [ "kube-apiserver.service" ];
 
         serviceConfig = {
@@ -183,7 +188,10 @@
         description = "Kubernetes Controller Manager";
         documentation = [ "https://github.com/kubernetes/kubernetes" ];
         wantedBy = [ "kubernetes.target" ];
-        after = [ "kube-apiserver.service" ];
+        after = [
+          "kube-apiserver.service"
+          "systemd-tmpfiles-setup.service"
+        ];
         requires = [ "kube-apiserver.service" ];
 
         serviceConfig = {

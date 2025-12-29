@@ -61,8 +61,9 @@
       virtualisation.containerd.enable = true;
 
       # Enable IPv6 forwarding for pod networking (required even without CNI for now)
+      # Use mkDefault to avoid conflicts with other modules (e.g., wireguard) setting the same value
       boot.kernel.sysctl = {
-        "net.ipv6.conf.all.forwarding" = 1;
+        "net.ipv6.conf.all.forwarding" = lib.mkDefault 1;
       };
 
       # Generate kubelet kubeconfig
@@ -160,6 +161,7 @@
         after = [
           "network.target"
           "containerd.service"
+          "systemd-tmpfiles-setup.service"
         ];
         requires = [ "containerd.service" ];
 

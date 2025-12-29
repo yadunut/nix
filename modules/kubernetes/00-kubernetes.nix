@@ -81,7 +81,8 @@
         };
 
         systemd.tmpfiles.rules = [
-          "d /var/lib/kubernetes 0755 kubernetes kubernetes -"
+          # Root ownership to allow subdirectories with different owners (pki, etcd)
+          "d /var/lib/kubernetes 0755 root root -"
         ];
       };
     };
