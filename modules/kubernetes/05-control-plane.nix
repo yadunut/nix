@@ -197,6 +197,7 @@
         serviceConfig = {
           ExecStart = ''
             ${pkgs.kubernetes}/bin/kube-controller-manager \
+              --allocate-node-cidrs=true \
               --bind-address=:: \
               --cluster-cidr=${clusterCIDR} \
               --cluster-name=${clusterName} \
