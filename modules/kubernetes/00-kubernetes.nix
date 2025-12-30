@@ -203,7 +203,7 @@
       roles.compute.machines.nut-gc1 = { };
       roles.compute.machines.nut-gc2 = { };
       roles.compute.machines.premhome-eagle-1 = { };
-      roles.compute.machines.premhome-eagle-2 = { };
+      roles.compute.machines.premhome-falcon-1 = { };
     };
   };
   perSystem =

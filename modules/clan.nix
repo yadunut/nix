@@ -31,7 +31,7 @@
           };
 
           meta.name = "nut-clan";
-          meta.tld = "nut";
+          meta.domain = "yadunut.dev";
           inventory.machines = builtins.mapAttrs (
             name: cfg:
             {
