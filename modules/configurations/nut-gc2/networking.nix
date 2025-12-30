@@ -15,7 +15,10 @@
       ];
       routes = [
         { Gateway = "103.149.46.126"; }
-        { Gateway = "2a11:8083:11::1"; }
+        {
+          Gateway = "2a11:8083:11::1";
+          GatewayOnLink = true;
+        }
       ];
     };
     networking.firewall = {
